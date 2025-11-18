@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:todo_practice/ui/widgets/todo_board.dart';
 import '../widgets/calendar_bar.dart';
+import '../../viewModels/main_viewmodel.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
-}
+  Widget build(BuildContext context,) {
+    final viewModel = context.watch<MainViewModel>();
 
-class _MainScreenState extends State<MainScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF2F2F2),
+      backgroundColor: const Color(0xFFF2F2F2),
       body: SafeArea(
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CalendarBar()
+              CalendarBar(
+                yyyymmdd: 20251118,
+                todo: viewModel.todoCount,
+                done: viewModel.doneCount,
+              ),
+
+              const SizedBox(height: 16),
+              TodoBoard(
+                  todos: viewModel.sortedTodos,
+                  onTodoTap: viewModel.toggle,
+                ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {},
         tooltip: 'Increment',
         backgroundColor: Colors.white,
         foregroundColor: Colors.grey,
