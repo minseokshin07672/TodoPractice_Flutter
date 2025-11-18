@@ -13,6 +13,8 @@ class TodoItem extends StatelessWidget {
     final formattedDate =
         "${todo.dueDate.year}-${todo.dueDate.month.toString().padLeft(2, '0')}-${todo.dueDate.day.toString().padLeft(2, '0')}";
 
+    final isDone = todo.status == TodoStatus.done;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -25,11 +27,11 @@ class TodoItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
-              todo.done
+              isDone
                   ? Icons.check_box_rounded
                   : Icons.check_box_outline_blank_rounded,
               size: 18,
-              color: todo.done ? Colors.black : Colors.grey,
+              color: isDone ? Colors.black : Colors.grey,
             ),
 
             const SizedBox(width: 10),
@@ -42,10 +44,10 @@ class TodoItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
-                  decoration: todo.done
+                  decoration: isDone
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
-                  color: todo.done ? Colors.grey : Colors.black,
+                  color: isDone ? Colors.grey : Colors.black,
                 ),
               ),
             ),

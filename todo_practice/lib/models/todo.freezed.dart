@@ -21,10 +21,8 @@ Todo _$TodoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Todo {
-  bool get done => throw _privateConstructorUsedError;
-
+  TodoStatus get status => throw _privateConstructorUsedError;
   String get task => throw _privateConstructorUsedError;
-
   DateTime get dueDate => throw _privateConstructorUsedError;
 
   /// Serializes this Todo to a JSON map.
@@ -40,9 +38,8 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res, Todo>;
-
   @useResult
-  $Res call({bool done, String task, DateTime dueDate});
+  $Res call({TodoStatus status, String task, DateTime dueDate});
 }
 
 /// @nodoc
@@ -52,7 +49,6 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -61,16 +57,16 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? done = null,
+    Object? status = null,
     Object? task = null,
     Object? dueDate = null,
   }) {
     return _then(
       _value.copyWith(
-            done: null == done
-                ? _value.done
-                : done // ignore: cast_nullable_to_non_nullable
-                      as bool,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as TodoStatus,
             task: null == task
                 ? _value.task
                 : task // ignore: cast_nullable_to_non_nullable
@@ -91,10 +87,9 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
     _$TodoImpl value,
     $Res Function(_$TodoImpl) then,
   ) = __$$TodoImplCopyWithImpl<$Res>;
-
   @override
   @useResult
-  $Res call({bool done, String task, DateTime dueDate});
+  $Res call({TodoStatus status, String task, DateTime dueDate});
 }
 
 /// @nodoc
@@ -109,16 +104,16 @@ class __$$TodoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? done = null,
+    Object? status = null,
     Object? task = null,
     Object? dueDate = null,
   }) {
     return _then(
       _$TodoImpl(
-        done: null == done
-            ? _value.done
-            : done // ignore: cast_nullable_to_non_nullable
-                  as bool,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as TodoStatus,
         task: null == task
             ? _value.task
             : task // ignore: cast_nullable_to_non_nullable
@@ -136,7 +131,7 @@ class __$$TodoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TodoImpl implements _Todo {
   const _$TodoImpl({
-    required this.done,
+    required this.status,
     required this.task,
     required this.dueDate,
   });
@@ -145,7 +140,7 @@ class _$TodoImpl implements _Todo {
       _$$TodoImplFromJson(json);
 
   @override
-  final bool done;
+  final TodoStatus status;
   @override
   final String task;
   @override
@@ -153,7 +148,7 @@ class _$TodoImpl implements _Todo {
 
   @override
   String toString() {
-    return 'Todo(done: $done, task: $task, dueDate: $dueDate)';
+    return 'Todo(status: $status, task: $task, dueDate: $dueDate)';
   }
 
   @override
@@ -161,14 +156,14 @@ class _$TodoImpl implements _Todo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TodoImpl &&
-            (identical(other.done, done) || other.done == done) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.task, task) || other.task == task) &&
             (identical(other.dueDate, dueDate) || other.dueDate == dueDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, done, task, dueDate);
+  int get hashCode => Object.hash(runtimeType, status, task, dueDate);
 
   /// Create a copy of Todo
   /// with the given fields replaced by the non-null parameter values.
@@ -186,7 +181,7 @@ class _$TodoImpl implements _Todo {
 
 abstract class _Todo implements Todo {
   const factory _Todo({
-    required final bool done,
+    required final TodoStatus status,
     required final String task,
     required final DateTime dueDate,
   }) = _$TodoImpl;
@@ -194,11 +189,9 @@ abstract class _Todo implements Todo {
   factory _Todo.fromJson(Map<String, dynamic> json) = _$TodoImpl.fromJson;
 
   @override
-  bool get done;
-
+  TodoStatus get status;
   @override
   String get task;
-
   @override
   DateTime get dueDate;
 

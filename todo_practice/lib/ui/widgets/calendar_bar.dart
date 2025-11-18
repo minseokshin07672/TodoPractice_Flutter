@@ -1,76 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../viewModels/main_viewmodel.dart';
+import 'calendar_board.dart';
 
 class CalendarBar extends StatefulWidget {
-  final int yyyymmdd;
-  final int todo;
-  final int done;
-
-  const CalendarBar({
-    super.key,
-    required this.yyyymmdd,
-    required this.todo,
-    required this.done,
-  });
+  const CalendarBar({super.key});
 
   @override
   State<CalendarBar> createState() => _CalendarBarState();
 }
 
-class _CalendarBarState extends State<CalendarBar> {
+class _CalendarBarState extends State<CalendarBar>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MainViewModel>();
+    final selected = viewModel.selectedDate;
+
     final now = DateTime.now();
-    final todayKey = now.year * 10000 + now.month * 100 + now.day;
+    final isToday =
+        now.year == selected.year &&
+        now.month == selected.month &&
+        now.day == selected.day;
 
-    final isToday = widget.yyyymmdd == todayKey;
+    final dayLabel = "${selected.month}월 ${selected.day}일";
 
-    final int day = widget.yyyymmdd % 100;
-
-    final int total = widget.todo + widget.done;
-    final double progress = total == 0 ? 0 : widget.done / total;
+    final todo = viewModel.todoCount;
+    final done = viewModel.doneCount;
+    final total = todo + done;
+    final progress = total == 0 ? 0.0 : done / total;
 
     return Column(
       children: [
         const SizedBox(height: 72),
 
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(28),
-          ),
+        GestureDetector(
+          onTap: () {
+            viewModel.toggleCalendar();
+          },
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_month_sharp,
+                      size: 24,
+                      color: Colors.black,
+                    ),
+                    const SizedBox(width: 8),
 
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.calendar_month_sharp,
-                size: 24,
-                color: Colors.black,
-              ),
+                    Expanded(
+                      child: Text(
+                        isToday ? "Today" : dayLabel,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
 
-              const SizedBox(width: 8),
+                    const SizedBox(width: 8),
 
-              Expanded(
-                child: Text(
-                  isToday ? "Today" : day.toString(),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
+                    viewModel.isCalendarExpanded
+                        ? Icon(
+                            Icons.keyboard_arrow_up,
+                            size: 28,
+                            color: Colors.black,
+                          )
+                        : RingProgress(
+                            progress: progress,
+                            done: done,
+                            size: 28,
+                            strokeWidth: 4,
+                          ),
+                  ],
                 ),
-              ),
 
-              const SizedBox(width: 8),
-
-              RingProgress(
-                progress: progress,
-                done: widget.done,
-                size: 28,
-                strokeWidth: 4,
-              ),
-            ],
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                  child: viewModel.isCalendarExpanded
+                      ? const CalendarBoard()
+                      : const SizedBox.shrink(),
+                ),
+              ],
+            ),
           ),
         ),
       ],

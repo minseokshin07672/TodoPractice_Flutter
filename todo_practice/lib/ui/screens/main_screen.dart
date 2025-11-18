@@ -19,16 +19,13 @@ class MainScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              CalendarBar(
-                yyyymmdd: 20251118,
-                todo: viewModel.todoCount,
-                done: viewModel.doneCount,
-              ),
-
+              CalendarBar(),
               const SizedBox(height: 16),
-              TodoBoard(
-                todos: viewModel.sortedTodos,
-                onTodoTap: viewModel.toggle,
+              Flexible(
+                child: TodoBoard(
+                  todos: viewModel.filteredTodos,
+                  onTodoTap: viewModel.toggle,
+                ),
               ),
             ],
           ),
