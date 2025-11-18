@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../models/todo.dart';
 import 'todo_item.dart';
 
@@ -6,11 +7,7 @@ class TodoBoard extends StatelessWidget {
   final List<Todo> todos;
   final Function(Todo todo) onTodoTap;
 
-  const TodoBoard({
-    super.key,
-    required this.todos,
-    required this.onTodoTap,
-  });
+  const TodoBoard({super.key, required this.todos, required this.onTodoTap});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +25,7 @@ class TodoBoard extends StatelessWidget {
         itemCount: todos.length,
         itemBuilder: (context, index) {
           final todo = todos[index];
-          return TodoItem(
-            todo: todo,
-            onTap: () => onTodoTap(todo),
-          );
+          return TodoItem(todo: todo, onTap: () => onTodoTap(todo));
         },
         separatorBuilder: (_, __) => const SizedBox(height: 11),
       ),

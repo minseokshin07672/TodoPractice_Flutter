@@ -6,7 +6,11 @@ class MainViewModel extends ChangeNotifier {
     Todo(done: false, task: "운동하기", dueDate: DateTime(2025, 11, 18)),
     Todo(done: true, task: "요리 연습하기", dueDate: DateTime(2025, 11, 20)),
     Todo(done: false, task: "프로젝트 코드 정리하기", dueDate: DateTime(2025, 11, 22)),
-    Todo(done: false, task: "긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트", dueDate: DateTime(2025, 11, 18)),
+    Todo(
+      done: false,
+      task: "긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트",
+      dueDate: DateTime(2025, 11, 18),
+    ),
   ];
 
   void toggle(Todo todo) {
@@ -23,5 +27,6 @@ class MainViewModel extends ChangeNotifier {
   }
 
   int get doneCount => todos.where((t) => t.done).length;
+
   int get todoCount => todos.where((t) => !t.done).length;
 }

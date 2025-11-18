@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practice/ui/widgets/todo_board.dart';
-import '../widgets/calendar_bar.dart';
+
 import '../../viewModels/main_viewmodel.dart';
+import '../widgets/calendar_bar.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
 
     return Scaffold(
@@ -26,9 +27,9 @@ class MainScreen extends StatelessWidget {
 
               const SizedBox(height: 16),
               TodoBoard(
-                  todos: viewModel.sortedTodos,
-                  onTodoTap: viewModel.toggle,
-                ),
+                todos: viewModel.sortedTodos,
+                onTodoTap: viewModel.toggle,
+              ),
             ],
           ),
         ),

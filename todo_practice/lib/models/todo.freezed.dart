@@ -22,7 +22,9 @@ Todo _$TodoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Todo {
   bool get done => throw _privateConstructorUsedError;
+
   String get task => throw _privateConstructorUsedError;
+
   DateTime get dueDate => throw _privateConstructorUsedError;
 
   /// Serializes this Todo to a JSON map.
@@ -38,6 +40,7 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res, Todo>;
+
   @useResult
   $Res call({bool done, String task, DateTime dueDate});
 }
@@ -49,6 +52,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo>
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -87,6 +91,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
     _$TodoImpl value,
     $Res Function(_$TodoImpl) then,
   ) = __$$TodoImplCopyWithImpl<$Res>;
+
   @override
   @useResult
   $Res call({bool done, String task, DateTime dueDate});
@@ -190,8 +195,10 @@ abstract class _Todo implements Todo {
 
   @override
   bool get done;
+
   @override
   String get task;
+
   @override
   DateTime get dueDate;
 

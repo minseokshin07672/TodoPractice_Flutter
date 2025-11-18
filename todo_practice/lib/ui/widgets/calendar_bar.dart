@@ -78,7 +78,6 @@ class _CalendarBarState extends State<CalendarBar> {
   }
 }
 
-
 class RingProgress extends StatelessWidget {
   final double progress;
   final int done;
@@ -114,10 +113,7 @@ class RingProgress extends StatelessWidget {
 
           Text(
             done.toString(),
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
           ),
         ],
       ),
