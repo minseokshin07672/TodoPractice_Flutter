@@ -94,16 +94,14 @@ class _CalendarBoardState extends State<CalendarBoard> {
     );
   }
 
-
   bool _hasDoneTodo(int year, int month, int day) {
     final targetDate = DateTime(year, month, day);
-    return viewModel.todos.any((todo) =>
-    todo.status == TodoStatus.done &&
-        todo.dueDate.year == targetDate.year &&
-        todo.dueDate.month == targetDate.month &&
-        todo.dueDate.day == targetDate.day);
+    return viewModel.todos.any(
+      (todo) =>
+          todo.status == TodoStatus.done &&
+          todo.dueDate.year == targetDate.year &&
+          todo.dueDate.month == targetDate.month &&
+          todo.dueDate.day == targetDate.day,
+    );
   }
 }
-
-
-

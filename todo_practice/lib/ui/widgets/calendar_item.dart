@@ -21,11 +21,11 @@ class CalendarItem extends StatelessWidget {
     final selected = viewModel.selectedDate;
 
     final now = DateTime.now();
-    final isToday = now.year == date.year &&
-        now.month == date.month &&
-        now.day == date.day;
+    final isToday =
+        now.year == date.year && now.month == date.month && now.day == date.day;
 
-    final isSelected = selected.year == date.year &&
+    final isSelected =
+        selected.year == date.year &&
         selected.month == date.month &&
         selected.day == date.day;
 
@@ -45,9 +45,17 @@ class CalendarItem extends StatelessWidget {
                 if (isToday && !todoExist)
                   Icon(Icons.square_rounded, size: 20, color: Colors.black),
                 if (isSelected)
-                  Icon(Icons.check_box_outline_blank_rounded, size: 20, color: Colors.black),
+                  Icon(
+                    Icons.check_box_outline_blank_rounded,
+                    size: 20,
+                    color: Colors.black,
+                  ),
                 if (!todoExist && !isToday && !isSelected)
-                  Icon(Icons.check_box_outline_blank_rounded, size: 20, color: Colors.black12),
+                  Icon(
+                    Icons.check_box_outline_blank_rounded,
+                    size: 20,
+                    color: Colors.black12,
+                  ),
               ],
             ),
           ),

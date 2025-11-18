@@ -15,4 +15,4 @@ class Todo with _$Todo {
 }
 
 @JsonEnum()
-enum TodoStatus {todo,done}
+enum TodoStatus { todo, done }
