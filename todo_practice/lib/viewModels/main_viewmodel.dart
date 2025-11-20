@@ -54,8 +54,8 @@ class MainViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedDay(int day) {
-    selectedDate = DateTime(selectedDate.year, selectedDate.month, day);
+  void setSelectedDay(DateTime date) {
+    selectedDate = date;
     notifyListeners();
   }
 
