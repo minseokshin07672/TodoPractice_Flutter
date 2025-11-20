@@ -53,6 +53,12 @@ class MainViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTodo(Todo todo) {
+    todos.remove(todo);
+    _saveTodos();
+    notifyListeners();
+  }
+
   List<Todo> get filteredTodos {
     final filtered = todos
         .where(

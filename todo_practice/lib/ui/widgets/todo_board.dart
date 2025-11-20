@@ -6,8 +6,14 @@ import 'todo_item.dart';
 class TodoBoard extends StatelessWidget {
   final List<Todo> todos;
   final Function(Todo todo) onTodoTap;
+  final Function(Todo todo) onTodoDelete;
 
-  const TodoBoard({super.key, required this.todos, required this.onTodoTap});
+  const TodoBoard({
+    super.key,
+    required this.todos,
+    required this.onTodoTap,
+    required this.onTodoDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +24,17 @@ class TodoBoard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
       ),
-
       child: ListView.separated(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemCount: todos.length,
         itemBuilder: (context, index) {
           final todo = todos[index];
-          return TodoItem(todo: todo, onTap: () => onTodoTap(todo));
+          return TodoItem(
+            todo: todo,
+            onTap: () => onTodoTap(todo),
+            onDelete: () => onTodoDelete(todo),
+          );
         },
         separatorBuilder: (_, __) => const SizedBox(height: 11),
       ),

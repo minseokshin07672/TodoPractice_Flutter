@@ -27,6 +27,7 @@ class MainScreen extends StatelessWidget {
                 child: TodoBoard(
                   todos: viewModel.filteredTodos,
                   onTodoTap: viewModel.toggle,
+                  onTodoDelete: viewModel.deleteTodo,
                 ),
               ),
             ],
