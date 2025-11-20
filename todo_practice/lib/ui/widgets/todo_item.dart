@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:todo_practice/ui/theme/app_typography.dart';
+import 'package:todo_practice/ui/widgets/styled_text.dart';
 
 import '../../domain/models/todo.dart';
 
@@ -38,13 +40,9 @@ class TodoItem extends StatelessWidget {
             const SizedBox(width: 10),
 
             Expanded(
-              child: Text(
+              child: styledText(
                 todo.task,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
+                testStyle: AppTypography.bodySmall.copyWith(
                   decoration: isDone
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,

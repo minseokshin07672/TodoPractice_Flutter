@@ -12,11 +12,26 @@ class AppTheme {
     primaryColor: AppColors.primary,
     fontFamily: 'Pretendard',
 
-    textTheme: TextTheme(
-      headlineLarge: AppTypography.h1,
-      headlineMedium: AppTypography.h2,
-      bodyLarge: AppTypography.body,
-      bodyMedium: AppTypography.small,
+    textTheme: const TextTheme(
+      displayLarge: AppTypography.displayLarge,
+      displayMedium: AppTypography.displayMedium,
+      displaySmall: AppTypography.displaySmall,
+
+      headlineLarge: AppTypography.headlineLarge,
+      headlineMedium: AppTypography.headlineMedium,
+      headlineSmall: AppTypography.headlineSmall,
+
+      titleLarge: AppTypography.titleLarge,
+      titleMedium: AppTypography.titleMedium,
+      titleSmall: AppTypography.titleSmall,
+
+      bodyLarge: AppTypography.bodyLarge,
+      bodyMedium: AppTypography.bodyMedium,
+      bodySmall: AppTypography.bodySmall,
+
+      labelLarge: AppTypography.labelLarge,
+      labelMedium: AppTypography.labelMedium,
+      labelSmall: AppTypography.labelSmall,
     ),
 
     appBarTheme: const AppBarTheme(
