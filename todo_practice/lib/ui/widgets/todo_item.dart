@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../models/todo.dart';
+import '../../domain/models/todo.dart';
 
 class TodoItem extends StatelessWidget {
   final Todo todo;
@@ -26,12 +27,12 @@ class TodoItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
+            SvgPicture.asset(
               isDone
-                  ? Icons.check_box_rounded
-                  : Icons.check_box_outline_blank_rounded,
-              size: 18,
-              color: isDone ? Colors.black : Colors.grey,
+                  ? "assets/ic_checkbox_checked.svg"
+                  : "assets/ic_checkbox_unchecked.svg",
+              width: 18,
+              height: 18,
             ),
 
             const SizedBox(width: 10),

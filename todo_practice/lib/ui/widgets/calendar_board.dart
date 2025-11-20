@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/todo.dart';
 import '../../viewModels/main_viewmodel.dart';
 import 'calendar_item.dart';
 
@@ -15,10 +14,10 @@ class CalendarBoard extends StatefulWidget {
 class _CalendarBoardState extends State<CalendarBoard> {
   final DateTime _currentMonth = DateTime(2025, 11);
 
-  late final viewModel = context.read<MainViewModel>();
-
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MainViewModel>(); // read → watch로 변경
+
     final year = _currentMonth.year;
     final month = _currentMonth.month;
 
@@ -81,7 +80,7 @@ class _CalendarBoardState extends State<CalendarBoard> {
                     ? const SizedBox.shrink()
                     : CalendarItem(
                         date: DateTime(year, month, day),
-                        todoExist: _hasDoneTodo(year, month, day),
+                        todoExist: _hasTodo(viewModel, year, month, day),
                         onTap: () {
                           viewModel.setSelectedDay(day);
                         },
@@ -94,11 +93,10 @@ class _CalendarBoardState extends State<CalendarBoard> {
     );
   }
 
-  bool _hasDoneTodo(int year, int month, int day) {
+  bool _hasTodo(MainViewModel viewModel, int year, int month, int day) {
     final targetDate = DateTime(year, month, day);
     return viewModel.todos.any(
       (todo) =>
-          todo.status == TodoStatus.done &&
           todo.dueDate.year == targetDate.year &&
           todo.dueDate.month == targetDate.month &&
           todo.dueDate.day == targetDate.day,

@@ -1,91 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:todo_practice/models/todo.dart';
+
+import '../data/todo_local_storage.dart';
+import '../domain/models/todo.dart';
 
 class MainViewModel extends ChangeNotifier {
-  List<Todo> todos = [
-    Todo(
-      status: TodoStatus.done,
-      task: "월간 계획 세우기",
-      dueDate: DateTime(2025, 11, 1),
-    ),
-    Todo(status: TodoStatus.done, task: "장보기", dueDate: DateTime(2025, 11, 1)),
+  final TodoLocalStorage _storage = TodoLocalStorage();
 
-    Todo(
-      status: TodoStatus.done,
-      task: "독서 모임 참석",
-      dueDate: DateTime(2025, 11, 3),
-    ),
-
-    Todo(
-      status: TodoStatus.done,
-      task: "헬스장 등록",
-      dueDate: DateTime(2025, 11, 5),
-    ),
-    Todo(
-      status: TodoStatus.done,
-      task: "영어 공부 1시간",
-      dueDate: DateTime(2025, 11, 5),
-    ),
-
-    Todo(
-      status: TodoStatus.done,
-      task: "블로그 포스팅",
-      dueDate: DateTime(2025, 11, 7),
-    ),
-
-    Todo(
-      status: TodoStatus.done,
-      task: "친구 생일 선물 구매",
-      dueDate: DateTime(2025, 11, 10),
-    ),
-    Todo(
-      status: TodoStatus.done,
-      task: "자동차 세차",
-      dueDate: DateTime(2025, 11, 10),
-    ),
-
-    Todo(
-      status: TodoStatus.done,
-      task: "프로젝트 기획서 작성",
-      dueDate: DateTime(2025, 11, 12),
-    ),
-
-    Todo(
-      status: TodoStatus.done,
-      task: "치과 예약",
-      dueDate: DateTime(2025, 11, 14),
-    ),
-    Todo(
-      status: TodoStatus.done,
-      task: "세금 신고",
-      dueDate: DateTime(2025, 11, 14),
-    ),
-
-    Todo(
-      status: TodoStatus.todo,
-      task: "운동하기",
-      dueDate: DateTime(2025, 11, 18),
-    ),
-    Todo(
-      status: TodoStatus.done,
-      task: "요리 연습하기",
-      dueDate: DateTime(2025, 11, 20),
-    ),
-    Todo(
-      status: TodoStatus.done,
-      task: "프로젝트 코드 정리하기",
-      dueDate: DateTime(2025, 11, 22),
-    ),
-    Todo(
-      status: TodoStatus.todo,
-      task: "긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트 긴 텍스트",
-      dueDate: DateTime(2025, 11, 18),
-    ),
-  ];
+  List<Todo> todos = [];
 
   DateTime selectedDate = DateTime.now();
-
   bool isCalendarExpanded = false;
+
+  MainViewModel() {
+    _loadTodos();
+  }
+
+  Future<void> _loadTodos() async {
+    todos = await _storage.loadTodos();
+    notifyListeners();
+  }
+
+  Future<void> _saveTodos() async {
+    await _storage.saveTodos(todos);
+  }
 
   void toggle(Todo todo) {
     final index = todos.indexOf(todo);
@@ -96,7 +33,7 @@ class MainViewModel extends ChangeNotifier {
           ? TodoStatus.done
           : TodoStatus.todo,
     );
-
+    _saveTodos();
     notifyListeners();
   }
 
@@ -107,6 +44,12 @@ class MainViewModel extends ChangeNotifier {
 
   void setSelectedDay(int day) {
     selectedDate = DateTime(selectedDate.year, selectedDate.month, day);
+    notifyListeners();
+  }
+
+  void addTodo(String task, DateTime dueDate) {
+    todos.add(Todo(status: TodoStatus.todo, task: task, dueDate: dueDate));
+    _saveTodos();
     notifyListeners();
   }
 
@@ -125,7 +68,11 @@ class MainViewModel extends ChangeNotifier {
     return [...undone, ...done];
   }
 
-  int get doneCount => todos.where((t) => t.status == TodoStatus.done).length;
+  int get doneCount {
+    return filteredTodos.where((t) => t.status == TodoStatus.done).length;
+  }
 
-  int get todoCount => todos.where((t) => t.status == TodoStatus.todo).length;
+  int get todoCount {
+    return filteredTodos.where((t) => t.status == TodoStatus.todo).length;
+  }
 }

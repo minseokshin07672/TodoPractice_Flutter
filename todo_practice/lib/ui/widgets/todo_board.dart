@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/todo.dart';
+import '../../domain/models/todo.dart';
 import 'todo_item.dart';
 
 class TodoBoard extends StatelessWidget {

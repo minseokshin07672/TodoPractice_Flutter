@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_practice/ui/screens/main_screen.dart';
+import 'package:todo_practice/ui/theme/app_theme.dart';
 import 'package:todo_practice/viewModels/main_viewmodel.dart';
 
 void main() {
@@ -19,9 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-      ),
+      theme: AppTheme.light,
       home: const MainScreen(),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewModels/main_viewmodel.dart';
+import '../theme/app_colors.dart';
 import 'calendar_board.dart';
 
 class CalendarBar extends StatefulWidget {
@@ -35,20 +36,20 @@ class _CalendarBarState extends State<CalendarBar>
       children: [
         const SizedBox(height: 72),
 
-        GestureDetector(
-          onTap: () {
-            viewModel.toggleCalendar();
-          },
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(28),
-            ),
-            child: Column(
-              children: [
-                Row(
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(28),
+          ),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  viewModel.toggleCalendar();
+                },
+                child: Row(
                   children: [
                     const Icon(
                       Icons.calendar_month_sharp,
@@ -83,16 +84,16 @@ class _CalendarBarState extends State<CalendarBar>
                           ),
                   ],
                 ),
+              ),
 
-                AnimatedSize(
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.easeInOut,
-                  child: viewModel.isCalendarExpanded
-                      ? const CalendarBoard()
-                      : const SizedBox.shrink(),
-                ),
-              ],
-            ),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                child: viewModel.isCalendarExpanded
+                    ? const CalendarBoard()
+                    : const SizedBox.shrink(),
+              ),
+            ],
           ),
         ),
       ],
@@ -113,7 +114,7 @@ class RingProgress extends StatelessWidget {
     required this.done,
     this.size = 28,
     this.strokeWidth = 4,
-    this.color = Colors.green,
+    this.color = AppColors.green,
   });
 
   @override

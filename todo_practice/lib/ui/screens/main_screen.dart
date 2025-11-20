@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_practice/ui/widgets/todo_board.dart';
 
 import '../../viewModels/main_viewmodel.dart';
+import '../theme/app_colors.dart';
+import '../widgets/add_todo_modal.dart';
 import '../widgets/calendar_bar.dart';
 
 class MainScreen extends StatelessWidget {
@@ -13,7 +15,7 @@ class MainScreen extends StatelessWidget {
     final viewModel = context.watch<MainViewModel>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: AppColors.greyBackground,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -32,8 +34,15 @@ class MainScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (context) => const AddTodoModal(),
+          );
+        },
+        tooltip: 'Add Todo',
         backgroundColor: Colors.white,
         foregroundColor: Colors.grey,
         child: const Icon(Icons.add),

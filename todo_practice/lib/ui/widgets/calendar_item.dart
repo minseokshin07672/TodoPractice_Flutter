@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewModels/main_viewmodel.dart';
+import '../theme/app_colors.dart';
 
 class CalendarItem extends StatelessWidget {
   final bool todoExist;
@@ -41,14 +42,22 @@ class CalendarItem extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 if (todoExist)
-                  Icon(Icons.square_rounded, size: 20, color: Colors.grey),
+                  Icon(
+                    Icons.square_rounded,
+                    size: 20,
+                    color: AppColors.greyLight,
+                  ),
                 if (isToday && !todoExist)
-                  Icon(Icons.square_rounded, size: 20, color: Colors.black),
-                if (isSelected)
                   Icon(
                     Icons.check_box_outline_blank_rounded,
                     size: 20,
-                    color: Colors.black,
+                    color: AppColors.greyDark,
+                  ),
+                if (isSelected)
+                  Icon(
+                    Icons.square_rounded,
+                    size: 20,
+                    color: AppColors.greyDark,
                   ),
                 if (!todoExist && !isToday && !isSelected)
                   Icon(
