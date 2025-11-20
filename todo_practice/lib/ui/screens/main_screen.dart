@@ -14,39 +14,44 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
 
-    return Scaffold(
-      backgroundColor: AppColors.greyBackground,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              CalendarBar(),
-              const SizedBox(height: 16),
-              Flexible(
-                child: TodoBoard(
-                  todos: viewModel.filteredTodos,
-                  onTodoTap: viewModel.toggle,
-                  onTodoDelete: viewModel.deleteTodo,
+    return Listener(
+      onPointerDown: (_) {
+        viewModel.closeAllSwipes();
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.greyBackground,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                CalendarBar(),
+                const SizedBox(height: 16),
+                Flexible(
+                  child: TodoBoard(
+                    todos: viewModel.filteredTodos,
+                    onTodoTap: viewModel.toggle,
+                    onTodoDelete: viewModel.deleteTodo,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            builder: (context) => const AddTodoModal(),
-          );
-        },
-        tooltip: 'Add Todo',
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.grey,
-        child: const Icon(Icons.add),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              builder: (context) => const AddTodoModal(),
+            );
+          },
+          tooltip: 'Add Todo',
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.grey,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

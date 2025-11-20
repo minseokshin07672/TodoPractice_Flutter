@@ -31,7 +31,9 @@ class TodoBoard extends StatelessWidget {
         itemBuilder: (context, index) {
           final todo = todos[index];
           return TodoItem(
+            key: ValueKey(todo.hashCode),
             todo: todo,
+            index: index,
             onTap: () => onTodoTap(todo),
             onDelete: () => onTodoDelete(todo),
           );

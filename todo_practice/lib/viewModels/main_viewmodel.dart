@@ -7,9 +7,9 @@ class MainViewModel extends ChangeNotifier {
   final TodoLocalStorage _storage = TodoLocalStorage();
 
   List<Todo> todos = [];
-
   DateTime selectedDate = DateTime.now();
   bool isCalendarExpanded = false;
+  int? openedSwipeIndex;
 
   MainViewModel() {
     _loadTodos();
@@ -22,6 +22,18 @@ class MainViewModel extends ChangeNotifier {
 
   Future<void> _saveTodos() async {
     await _storage.saveTodos(todos);
+  }
+
+  void setOpenedSwipeIndex(int? index) {
+    openedSwipeIndex = index;
+    notifyListeners();
+  }
+
+  void closeAllSwipes() {
+    if (openedSwipeIndex != null) {
+      openedSwipeIndex = null;
+      notifyListeners();
+    }
   }
 
   void toggle(Todo todo) {

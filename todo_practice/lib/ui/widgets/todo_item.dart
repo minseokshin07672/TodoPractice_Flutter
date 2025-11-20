@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_practice/ui/theme/app_typography.dart';
 import 'package:todo_practice/ui/widgets/styled_text.dart';
 
 import '../../domain/models/todo.dart';
+import '../../viewModels/main_viewmodel.dart';
 
 class TodoItem extends StatefulWidget {
   final Todo todo;
+  final int index;
   final VoidCallback onTap;
   final VoidCallback onDelete;
 
   const TodoItem({
     super.key,
     required this.todo,
+    required this.index,
     required this.onTap,
     required this.onDelete,
   });
@@ -27,6 +31,20 @@ class _TodoItemState extends State<TodoItem> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MainViewModel>();
+
+    if (viewModel.openedSwipeIndex != null &&
+        viewModel.openedSwipeIndex != widget.index &&
+        _dragExtent != 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {
+            _dragExtent = 0;
+          });
+        }
+      });
+    }
+
     final formattedDate =
         "${widget.todo.dueDate.year}-${widget.todo.dueDate.month.toString().padLeft(2, '0')}-${widget.todo.dueDate.day.toString().padLeft(2, '0')}";
 
@@ -45,8 +63,12 @@ class _TodoItemState extends State<TodoItem> {
           setState(() {
             if (_dragExtent < -_deleteButtonWidth / 2) {
               _dragExtent = -_deleteButtonWidth;
+              viewModel.setOpenedSwipeIndex(widget.index);
             } else {
               _dragExtent = 0;
+              if (viewModel.openedSwipeIndex == widget.index) {
+                viewModel.setOpenedSwipeIndex(null);
+              }
             }
           });
         },
@@ -91,9 +113,7 @@ class _TodoItemState extends State<TodoItem> {
                         width: 18,
                         height: 18,
                       ),
-
                       const SizedBox(width: 10),
-
                       Expanded(
                         child: styledText(
                           widget.todo.task,
@@ -105,9 +125,7 @@ class _TodoItemState extends State<TodoItem> {
                           ),
                         ),
                       ),
-
                       const SizedBox(width: 12),
-
                       Row(
                         children: [
                           const Icon(
